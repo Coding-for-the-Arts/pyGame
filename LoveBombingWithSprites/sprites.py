@@ -3,9 +3,7 @@ pygame.init()
 
 speed = 2
 dwell = 3
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-BLACK = (0, 0, 0)
+
 WIDTH, HEIGHT = 1000, 800
 # Tuple (width, height) vs python ((width, height))
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
