@@ -148,6 +148,7 @@ def moveCharacter(character, keyUp, keyDown, keyLeft, keyRight, index):
         frame_set_start = set_index * 12 
         frame_set_end = frame_set_start + 2
         character.y -= VEL
+        
 
     if keyPressed[keyDown] and character.y + VEL + character.height < HEIGHT:
         frame_set_start = set_index * 12 + 6
@@ -175,6 +176,7 @@ def moveCharacter(character, keyUp, keyDown, keyLeft, keyRight, index):
         if keyRight == pygame.K_d and character.x + VEL + 20 < BORDER.x - BORDER.width:
             character.x += VEL
     
+  
     character.advanceImage(set_index, frame_set_start, frame_set_end )
 
 
@@ -183,7 +185,7 @@ def gotHit(hearts, bombs, goodguy, badguy):
     for heart in hearts:
         heart.x -= BULLETS_VEL
         
-        if badguy.colliderect2(heart):
+        if badguy.colliderect2(heart, 0):
             hearts.remove(heart)
             pygame.event.post(pygame.event.Event(BD_HIT))
         elif heart.x < 0:
@@ -191,7 +193,7 @@ def gotHit(hearts, bombs, goodguy, badguy):
 
     for bomb in bombs:
         bomb.x += BULLETS_VEL
-        if goodguy.colliderect2(bomb):
+        if goodguy.colliderect2(bomb, 100):
             bombs.remove(bomb)
             pygame.event.post(pygame.event.Event(GG_HIT))
         elif bomb.x > WIDTH:
@@ -251,13 +253,13 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RSHIFT and len(hearts) < MAX_BULLET:
                     heart = pygame.Rect(
-                        goodguy.x + goodguy.width//2, goodguy.y, HEART.get_width(), HEART.get_height())
+                        goodguy.x + goodguy.width//2, goodguy.y+50, HEART.get_width(), HEART.get_height())
                     HEART_SOUND.play()
                     hearts.append(heart)
 
                 if event.key == pygame.K_LSHIFT and len(bombs) < MAX_BULLET:
                     bomb = pygame.Rect(
-                        badguy.x + badguy.width // 2, badguy.y, BOMB.get_width(), BOMB.get_height())
+                        badguy.x + badguy.width//2, badguy.y+50, BOMB.get_width(), BOMB.get_height())
                     BOMB_SOUND.play()
                     bombs.append(bomb)
 
