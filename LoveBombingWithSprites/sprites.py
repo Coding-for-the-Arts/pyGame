@@ -34,7 +34,9 @@ class AnimatedSprite:
             if self.index<frame_set_start:
                 self.index = frame_set_start
                 
-    def colliderect2(self, sprite):
+    #shift is used only if the collider is at a different position than sprite
+    def colliderect2(self, sprite,shift):
+        self.rect = pygame.Rect(self.x + shift, self.y, self.frames[self.index].get_width()//2, self.frames[self.index].get_height())
         return self.rect.colliderect(sprite)
 
     def draw(self):
